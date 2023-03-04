@@ -21,7 +21,7 @@ $(document).ready(function () {
             x.style.display = 'block';
         }
         document.getElementById('book-name').innerHTML = searched.value;
-        let mydata=localStorage.setItem('mydata',searched.value);
+        let mydata=localStorage.setItem('mydata',JSON.stringify(searched.value));
         outputList.innerHTML = ""; //empty html output
         document.body.style.backgroundImage = "url('')";
         searchData = $("#search").val();
@@ -130,10 +130,29 @@ $(document).ready(function () {
 function history(){
     window.location.href ="/history.html";
     const date = new Date();
-    // let datetime = "Searched On" + date.getDate() + "at" + date.getHours() + ":"
-    //     + date.getMinutes() + "PM"
-    let mydate=localStorage.setItem('mydate',date)
-    document.getElementById('tableBody').innerHTML=localStorage.getItem('mydata');
-      }
+    let mydate=localStorage.setItem('mydate',JSON.stringify(date));
+    if(searched.value!=null){
+    let tableBodyContent = document.getElementById('tableBody');
+    let obj1={
+        MyData:mydata,
+        MyDate:mydate,
+    }
+    let arr=[];
+    arr.push(obj1);
+    console.log(arr);
+    tableBodyContent.innerHTML = '';
+    arr.map((element, index) => {
+        tableBodyContent.innerHTML += `
+        <tr>
+        <td>id: ${index + 1}.</td>
+        <td> ${element.MyData}</td>
+        <td> ${element.MyDate}</td>
+        </tr>`
+        console.log(tableBodyContent);
+      })
+    }
+    }
+    // document.getElementById('tableBody').innerHTML= JSON.parse(localStorage.getItem('mydata'));
+    //   }
 
 
