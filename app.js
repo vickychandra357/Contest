@@ -117,27 +117,7 @@ $(document).ready(function () {
         alert("search term can not be empty!")
     }
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    let date = new Date();
-    let datetime = "Searched On" + date.getDate() + "at" + currentdate.getHours() + ":"
-        + currentdate.getMinutes() + "PM";
-    let inputText=searchData.value;
-    if(!inputText){
-        var searchHistoryData={
-            inputText:inputText,
-            datetime:datetime,
-        };
-        const searchHistory=localStorage.getItem("books");
-        console.log("Books",books);
-        var booksArr=[];
-        if(books){
-            booksArr=JSON.parse(localStorage.getItem("books"));
-        }
-        else{
-            booksArr=[searchHistoryData];
-        }
-        localStorage.setItem("books", JSON.stringify(booksArr));
-        window.location.href ="/searched.html";
-    }    
+       
 
 
     //Search History
@@ -217,6 +197,31 @@ $(document).ready(function () {
     // }
 
 });
+
+function history(){
+    window.location.href ="/history.html";
+    let date = new Date();
+    let datetime = "Searched On" + date.getDate() + "at" + currentdate.getHours() + ":"
+        + currentdate.getMinutes() + "PM";
+    let inputText=searchData.value;
+    if(!inputText){
+        var searchHistoryData={
+            inputText:inputText,
+            datetime:datetime,
+        };
+        const searchHistory=localStorage.getItem("books");
+        console.log("Books",books);
+        var booksArr=[];
+        if(books){
+            booksArr=JSON.parse(localStorage.getItem("books"));
+        }
+        else{
+            booksArr=[searchHistoryData];
+        }
+       let tableData=document.getElementById('tableBody').innerHTML= localStorage.setItem("books", JSON.stringify(booksArr));
+        window.location.href ="/searched.html";
+    } 
+}
 
 
 
