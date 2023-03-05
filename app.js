@@ -21,7 +21,9 @@ $(document).ready(function () {
             x.style.display = 'block';
         }
         document.getElementById('book-name').innerHTML = searched.value;
-        let mydata=localStorage.setItem('mydata',JSON.stringify(searched.value));
+        let mydata = localStorage.setItem('mydata', JSON.stringify(searched.value));
+        const date = new Date();
+        let mydate = localStorage.setItem('mydate', JSON.stringify(date));
         outputList.innerHTML = ""; //empty html output
         document.body.style.backgroundImage = "url('')";
         searchData = $("#search").val();
@@ -57,11 +59,11 @@ $(document).ready(function () {
     * @param response
     */
     function displayResults(response) {
-        for (var i = 0; i < response.items.length; i +=3) {
+        for (var i = 0; i < response.items.length; i += 3) {
             item = response.items[i];
             title1 = item.volumeInfo.title;
             author1 = item.volumeInfo.authors;
-            pageCount1=item.volumeInfo.pageCount;
+            pageCount1 = item.volumeInfo.pageCount;
             publisher1 = item.volumeInfo.publisher;
             bookLink1 = item.volumeInfo.previewLink;
             bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
@@ -70,7 +72,7 @@ $(document).ready(function () {
             item2 = response.items[i + 1];
             title2 = item2.volumeInfo.title;
             author2 = item2.volumeInfo.authors;
-            pageCount2=item.volumeInfo.pageCount;
+            pageCount2 = item.volumeInfo.pageCount;
             publisher2 = item2.volumeInfo.publisher;
             bookLink2 = item2.volumeInfo.previewLink;
             bookIsbn2 = item2.volumeInfo.industryIdentifiers[1].identifier
@@ -121,38 +123,36 @@ $(document).ready(function () {
         alert("search term can not be empty!")
     }
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-       
 
 
-   
+
+
 });
 
-function history(){
-    window.location.href ="/history.html";
-    const date = new Date();
-    let mydate=localStorage.setItem('mydate',JSON.stringify(date));
-    if(searched.value!=null){
-    let tableBodyContent = document.getElementById('tableBody');
-    let obj1={
-        MyData:mydata,
-        MyDate:mydate,
-    }
-    let arr=[];
-    arr.push(obj1);
-    console.log(arr);
-    tableBodyContent.innerHTML = '';
-    arr.map((element, index) => {
-        tableBodyContent.innerHTML += `
+function history() {
+    window.location.href = "/history.html";
+    if (searched.value != null) {
+        let tableBodyContent = document.getElementById('tableBody');
+        let obj1 = {
+            MyData: mydata,
+            MyDate: mydate,
+        }
+        let arr = [];
+        arr.push(obj1);
+        console.log(arr);
+        tableBodyContent.innerHTML = '';
+        arr.map((element, index) => {
+            tableBodyContent.innerHTML += `
         <tr>
         <td>id: ${index + 1}.</td>
         <td> ${element.MyData}</td>
         <td> ${element.MyDate}</td>
         </tr>`
-        console.log(tableBodyContent);
-      })
+            console.log(tableBodyContent);
+            document.getElementById('table').appendChild(tableBodyContent);
+        })
     }
-    }
-    // document.getElementById('tableBody').innerHTML= JSON.parse(localStorage.getItem('mydata'));
-    //   }
+}
+
 
 
