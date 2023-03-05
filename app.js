@@ -130,7 +130,7 @@ $(document).ready(function () {
 });
 
 function history() {
-    window.location.href = "./history.html";
+    window.location.href = "history.html";
     if (searched.value != null) {
         let tableBodyContent = document.getElementById('tableBody');
         let obj1 = {
